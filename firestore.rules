@@ -1,0 +1,74 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    function gameDoc(gameId) {
+      return get(/databases/$(database)/documents/games/$(gameId)).data;
+    }
+
+    function isGamePlayer(gameId) {
+      return isSignedIn()
+        && (gameDoc(gameId).players.A.uid == request.auth.uid
+          || gameDoc(gameId).players.B.uid == request.auth.uid);
+    }
+
+    function isSeatedInGame() {
+      return isSignedIn()
+        && (resource.data.players.A.uid == request.auth.uid
+          || resource.data.players.B.uid == request.auth.uid
+          || request.resource.data.players.A.uid == request.auth.uid
+          || request.resource.data.players.B.uid == request.auth.uid);
+    }
+
+    match /lists/{listId} {
+      allow read: if isSignedIn() && resource.data.ownerUid == request.auth.uid;
+      allow create: if isSignedIn()
+        && request.resource.data.ownerUid == request.auth.uid;
+      allow update, delete: if isSignedIn()
+        && resource.data.ownerUid == request.auth.uid;
+    }
+
+    match /games/{gameId} {
+      allow read: if isSignedIn()
+        && (resource.data.players.A.uid == request.auth.uid
+          || resource.data.players.B.uid == request.auth.uid
+          || resource.data.players.B.uid == null
+          || resource.data.status == 'lobby');
+      allow create: if false;
+      allow update: if isSeatedInGame()
+        && !request.resource.data.diff(resource.data).affectedKeys()
+          .hasAny(['diceSeed', 'contentVersion']);
+      allow delete: if false;
+
+      match /units/{unitId} {
+        allow read: if isGamePlayer(gameId);
+        allow write: if isGamePlayer(gameId);
+      }
+
+      match /board/{docId} {
+        allow read: if isGamePlayer(gameId);
+        allow write: if isGamePlayer(gameId);
+      }
+
+      match /log/{logId} {
+        allow read: if isGamePlayer(gameId);
+        allow create: if isGamePlayer(gameId)
+          && request.resource.data.type == 'chat'
+          && request.resource.data.uid == request.auth.uid;
+        allow update, delete: if false;
+      }
+
+      match /private/{uid} {
+        allow read: if isOwner(uid);
+        allow write: if false;
+      }
+    }
+  }
+}

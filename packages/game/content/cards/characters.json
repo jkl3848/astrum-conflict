@@ -1,0 +1,368 @@
+[
+  {
+    "id": "eagle",
+    "name": "Eagle",
+    "faction": "heroes",
+    "points": 140,
+    "hp": 5,
+    "energy": 6,
+    "defense": 4,
+    "keywords": ["LEADER", "META", "MEDIUM"],
+    "slots": { "gear": 1, "trait": 1 },
+    "abilities": [
+      {
+        "id": "basic-attack",
+        "name": "BASIC ATTACK",
+        "kind": "melee",
+        "dice": 2,
+        "energy": 2,
+        "range": { "min": 0, "max": 2 }
+      },
+      {
+        "id": "soaring-strike",
+        "name": "SOARING STRIKE",
+        "kind": "melee",
+        "dice": 3,
+        "energy": 3,
+        "range": { "min": 0, "max": 3 },
+        "modifier": -1,
+        "text": "BEFORE ATTACKING, MOVE TO RANGE 0 OF THE TARGET."
+      }
+    ],
+    "passive": "FLIGHT. +1 MOVEMENT. AT THE START OF THE RECOVERY PHASE, ALLY UNITS IN RANGE 3 GAIN +1 MAX ENERGY FOR THE ROUND.",
+    "artKey": "eagle"
+  },
+  {
+    "id": "mountain-jack",
+    "name": "Mountain Jack",
+    "faction": "heroes",
+    "points": 135,
+    "hp": 7,
+    "energy": 5,
+    "defense": 4,
+    "keywords": ["TANK", "SUPER", "LARGE"],
+    "slots": { "gear": 0, "trait": 1 },
+    "abilities": [
+      {
+        "id": "basic-attack",
+        "name": "BASIC ATTACK",
+        "kind": "melee",
+        "dice": 1,
+        "energy": 2,
+        "range": { "min": 0, "max": 2 }
+      },
+      {
+        "id": "timber",
+        "name": "TIMBER!",
+        "kind": "melee",
+        "dice": 3,
+        "energy": 4,
+        "range": { "min": 0, "max": 1 },
+        "modifier": 1,
+        "text": "EFFECTS ALL ENEMY UNITS IN RANGE. CHOOSE 1 TARGET TO GAIN STUNNED."
+      }
+    ],
+    "passive": "IMMUNE: BLEED. ARMOR: 1.",
+    "artKey": "mountain-jack"
+  },
+  {
+    "id": "divinity",
+    "name": "Divinity",
+    "faction": "heroes",
+    "points": 140,
+    "hp": 5,
+    "energy": 6,
+    "defense": 2,
+    "keywords": ["HEALER", "COSMIC", "SMALL"],
+    "slots": { "gear": 1, "trait": 1 },
+    "abilities": [
+      {
+        "id": "basic-attack",
+        "name": "BASIC ATTACK",
+        "kind": "ranged",
+        "dice": 1,
+        "energy": 2,
+        "range": { "min": 0, "max": 3 },
+        "text": "IF THE ATTACK DEALS DAMAGE, HEAL THIS UNIT FOR 1."
+      },
+      {
+        "id": "grace",
+        "name": "GRACE",
+        "kind": "heal",
+        "dice": 2,
+        "energy": 4,
+        "range": { "min": 0, "max": 3 }
+      }
+    ],
+    "passive": "WHEN YOU HEAL A UNIT, YOU MAY REMOVE 1 EFFECT TOKEN ON THAT UNIT.",
+    "artKey": "divinity"
+  },
+  {
+    "id": "glaciera",
+    "name": "Glaciera",
+    "faction": "heroes",
+    "points": 120,
+    "hp": 5,
+    "energy": 6,
+    "defense": 4,
+    "keywords": ["TACTICIAN", "SUPER", "MEDIUM"],
+    "slots": { "gear": 1, "trait": 1 },
+    "abilities": [
+      {
+        "id": "basic-attack",
+        "name": "BASIC ATTACK",
+        "kind": "ranged",
+        "dice": 2,
+        "energy": 3,
+        "range": { "min": 0, "max": 3 },
+        "text": "TARGET GAINS 1 SLOW."
+      },
+      {
+        "id": "frozen-barrier",
+        "name": "FROZEN BARRIER",
+        "kind": "special",
+        "dice": 0,
+        "energy": 5,
+        "range": { "min": 0, "max": 3 },
+        "text": "CREATE AN ICE WALL. ICE WALL IS TERRAIN AND HAS BREAKABLE: 4. CREATING A NEW ICE WALL DESTROYS ANY ICE WALLS ON THE FIELD."
+      }
+    ],
+    "passive": "+1 MOVEMENT.",
+    "artKey": "glaciera"
+  },
+  {
+    "id": "starlight-defender",
+    "name": "Starlight Defender",
+    "faction": "heroes",
+    "points": 110,
+    "hp": 4,
+    "energy": 6,
+    "defense": 4,
+    "keywords": ["MORTAL", "BRUISER", "VIGILANTE", "SMALL"],
+    "slots": { "gear": 3, "trait": 2 },
+    "abilities": [
+      {
+        "id": "basic-attack",
+        "name": "BASIC ATTACK",
+        "kind": "melee",
+        "dice": 2,
+        "energy": 0,
+        "range": { "min": 0, "max": 0 },
+        "modifier": 2,
+        "text": "OPPONENT CANNOT AFFECT THIS ROLL."
+      },
+      {
+        "id": "ka-sheh-strikes",
+        "name": "KA-SHEH STRIKES",
+        "kind": "melee",
+        "dice": 4,
+        "energy": 3,
+        "range": { "min": 0, "max": 0 },
+        "modifier": -1,
+        "text": "DOES NOT TRIGGER COUNTER. IF A CRIT IS ROLLED, ENEMY CANNOT SPEND SHIELD."
+      }
+    ],
+    "passive": "ONCE PER GAME, DURING THE RECOVERY PHASE, THIS UNIT MAY GAIN 1 STEALTH. +1 MOVEMENT WHILE THIS UNIT HAS STEALTH.",
+    "artKey": "starlight-defender"
+  },
+  {
+    "id": "wolffe",
+    "name": "Wolffe",
+    "faction": "villains",
+    "points": 130,
+    "hp": 4,
+    "energy": 5,
+    "defense": 3,
+    "keywords": ["SNIPER", "MORTAL", "SMALL"],
+    "slots": { "gear": 2, "trait": 1 },
+    "abilities": [
+      {
+        "id": "basic-attack",
+        "name": "BASIC ATTACK",
+        "kind": "ranged",
+        "dice": 1,
+        "energy": 2,
+        "range": { "min": 0, "max": 3 },
+        "modifier": 1
+      },
+      {
+        "id": "sniper-shot",
+        "name": "SNIPER SHOT",
+        "kind": "ranged",
+        "dice": 1,
+        "energy": 2,
+        "range": { "min": 3, "max": 7 },
+        "modifier": 3
+      }
+    ],
+    "passive": "WHEN ATTACKING A TARGET AT RANGE 5 OR FARTHER, IGNORE ARMOR.",
+    "artKey": "wolffe"
+  },
+  {
+    "id": "blaze",
+    "name": "Blaze",
+    "faction": "villains",
+    "points": 125,
+    "hp": 5,
+    "energy": 6,
+    "defense": 4,
+    "keywords": ["BRUISER", "SUPER", "MEDIUM"],
+    "slots": { "gear": 1, "trait": 1 },
+    "abilities": [
+      {
+        "id": "basic-attack",
+        "name": "BASIC ATTACK",
+        "kind": "ranged",
+        "dice": 2,
+        "energy": 2,
+        "range": { "min": 0, "max": 3 },
+        "modifier": -2,
+        "text": "GAIN +1 PER HEAT TOKEN DISCARDED."
+      },
+      {
+        "id": "heat-up",
+        "name": "HEAT UP",
+        "kind": "special",
+        "dice": 0,
+        "energy": 4,
+        "range": { "min": 0, "max": 0 },
+        "text": "GAIN 3 HEAT TOKENS."
+      }
+    ],
+    "passive": "FLIGHT. IMMUNE: SLOW. AT THE END OF THE RECOVERY PHASE, GAIN 1 HEAT TOKEN. HEAT TOKENS ARE NOT REMOVED DURING THE REMOVE STATUS TOKENS STEP.",
+    "artKey": "blaze"
+  },
+  {
+    "id": "siphon",
+    "name": "Siphon",
+    "faction": "villains",
+    "points": 135,
+    "hp": 4,
+    "energy": 7,
+    "defense": 3,
+    "keywords": ["TACTICIAN", "COSMIC", "LARGE"],
+    "slots": { "gear": 1, "trait": 2 },
+    "abilities": [
+      {
+        "id": "basic-attack",
+        "name": "BASIC ATTACK",
+        "kind": "ranged",
+        "dice": 0,
+        "energy": 2,
+        "range": { "min": 0, "max": 2 },
+        "modifier": 3,
+        "text": "IF THIS ATTACK DOWNS A UNIT, REMOVE THAT UNIT FROM THE BOARD. PLACE 1 CORRUPTED UNIT IN ITS PLACE."
+      },
+      {
+        "id": "failed-subject",
+        "name": "FAILED SUBJECT",
+        "kind": "special",
+        "dice": 0,
+        "energy": 3,
+        "range": { "min": 0, "max": 0 },
+        "text": "REMOVE 1 CORRUPTED UNIT FROM THE BOARD. DEAL 1 +2 TO ALL UNITS IN RANGE 2 OF THAT UNIT."
+      }
+    ],
+    "passive": "GAIN +1 DEFENSE FOR EVERY CORRUPTED UNIT IN RANGE 3.",
+    "artKey": "siphon"
+  },
+  {
+    "id": "reaper",
+    "name": "Reaper",
+    "faction": "villains",
+    "points": 130,
+    "hp": 6,
+    "energy": 5,
+    "defense": 4,
+    "keywords": ["TANK", "SUPER", "LARGE"],
+    "slots": { "gear": 1, "trait": 1 },
+    "abilities": [
+      {
+        "id": "basic-attack",
+        "name": "BASIC ATTACK",
+        "kind": "melee",
+        "dice": 1,
+        "energy": 2,
+        "range": { "min": 0, "max": 0 },
+        "modifier": 2,
+        "text": "TARGET GAINS +1 BLEED."
+      },
+      {
+        "id": "bloodlust",
+        "name": "BLOODLUST",
+        "kind": "melee",
+        "dice": 1,
+        "energy": 2,
+        "range": { "min": 0, "max": 2 },
+        "modifier": 1,
+        "text": "ADD 1 FOR EACH BLEED ON THE TARGET."
+      },
+      {
+        "id": "counter",
+        "name": "COUNTER",
+        "kind": "special",
+        "dice": 0,
+        "energy": 0,
+        "range": { "min": 0, "max": 0 }
+      }
+    ],
+    "artKey": "reaper"
+  },
+  {
+    "id": "corrupted",
+    "name": "Corrupted",
+    "faction": "villains",
+    "draftable": false,
+    "points": 0,
+    "hp": 2,
+    "energy": 3,
+    "defense": 3,
+    "keywords": ["SWARM", "COSMIC", "MEDIUM"],
+    "copies": 3,
+    "slots": { "gear": 0, "trait": 0 },
+    "abilities": [
+      {
+        "id": "basic-attack",
+        "name": "BASIC ATTACK",
+        "kind": "melee",
+        "dice": 1,
+        "energy": 1,
+        "range": { "min": 0, "max": 0 }
+      }
+    ],
+    "passive": "THIS UNIT CANNOT BE EQUIPPED WHILE BUILDING TEAMS. WHEN THIS UNIT REACHES 0 HP, IT IS REMOVED FROM THE BOARD, NOT DOWNED.",
+    "artKey": "corrupted"
+  },
+  {
+    "id": "dr-ivanto",
+    "name": "Dr Ivanto",
+    "faction": "villains",
+    "points": 110,
+    "hp": 4,
+    "energy": 5,
+    "defense": 4,
+    "keywords": ["HEALER", "MORTAL", "VIGILANTE", "SMALL"],
+    "slots": { "gear": 2, "trait": 1 },
+    "abilities": [
+      {
+        "id": "basic-attack",
+        "name": "BASIC ATTACK",
+        "kind": "ranged",
+        "dice": 2,
+        "energy": 2,
+        "range": { "min": 0, "max": 3 },
+        "modifier": -1
+      },
+      {
+        "id": "quick-fix",
+        "name": "QUICK FIX",
+        "kind": "heal",
+        "dice": 3,
+        "energy": 3,
+        "range": { "min": 0, "max": 3 }
+      }
+    ],
+    "passive": "IMMUNE: BLEED. ON SETUP, YOU MAY EQUIP ADRENALINE OR POISON FOR FREE. WHEN HEALING A UNIT, IF A CRIT IS ROLLED, HEAL YOURSELF FOR 1 HP.",
+    "artKey": "dr-ivanto"
+  }
+]

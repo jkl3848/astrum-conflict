@@ -1,0 +1,482 @@
+[
+  {
+    "id": "adrenaline",
+    "name": "Adrenaline",
+    "points": 5,
+    "slot": "gear",
+    "restrictions": { "keywords": ["MORTAL"] },
+    "text": "HEAL SELF FOR 3 HP. GAIN 2 BLEED. USAGE: 1",
+    "effects": [{ "type": "text" }]
+  },
+  {
+    "id": "at-all-costs",
+    "name": "At All Costs",
+    "points": 10,
+    "slot": "trait",
+    "text": "GAIN +1 SHIELD WHILE IN RANGE 2 OF AN OBJECTIVE TOKEN.",
+    "effects": [{ "type": "text" }]
+  },
+  {
+    "id": "burning-splash",
+    "name": "Burning Splash",
+    "points": 10,
+    "slot": "trait",
+    "restrictions": { "characters": ["blaze"] },
+    "text": "AFTER ATTACKING, ROLL AN ATTACK AGAINST EACH UNIT IN RANGE 1 OF THE TARGET. GAIN 1 HEAT.",
+    "effects": [{ "type": "text" }],
+    "attackLine": {
+      "dice": 3,
+      "range": { "min": 1, "max": 4 },
+      "energy": 1,
+      "modifier": -1,
+      "kind": "ranged"
+    }
+  },
+  {
+    "id": "cardio-training",
+    "name": "Cardio Training",
+    "points": 5,
+    "slot": "trait",
+    "restrictions": { "keywords": ["MORTAL"] },
+    "text": "GAIN +1 MOVEMENT",
+    "effects": [{ "type": "text" }]
+  },
+  {
+    "id": "caution",
+    "name": "Caution",
+    "points": 10,
+    "slot": "trait",
+    "text": "WHEN AN ALLY UNIT IS DOWNED, GAIN 1 SHIELD.",
+    "effects": [{ "type": "text" }]
+  },
+  {
+    "id": "charge",
+    "name": "Charge",
+    "points": 5,
+    "slot": "trait",
+    "restrictions": { "characters": ["mountain-jack"] },
+    "text": "AT THE END OF THIS UNITS ACTIVATION, THIS UNIT MAY MAKE A 2 MOVEMENT IF IT DID NOT ATTACK THIS ROUND.",
+    "effects": [{ "type": "text" }]
+  },
+  {
+    "id": "consume",
+    "name": "Consume",
+    "points": 10,
+    "slot": "trait",
+    "restrictions": { "characters": ["siphon"] },
+    "text": "REMOVE A CORRUPTED UNIT IN RANGE 2, THEN HEAL SELF FOR 3",
+    "effects": [{ "type": "text" }],
+    "attackLine": { "dice": 2, "kind": "special" }
+  },
+  {
+    "id": "corruption",
+    "name": "Corruption",
+    "points": 10,
+    "slot": "trait",
+    "restrictions": { "characters": ["siphon"] },
+    "text": "REMOVE A DOWNED UNIT IN RANGE 1. ADD 1 CORRUPTED UNIT IN ITS PLACE.",
+    "effects": [{ "type": "text" }],
+    "attackLine": { "dice": 5, "kind": "special" }
+  },
+  {
+    "id": "damage-boost",
+    "name": "Damage Boost",
+    "points": 10,
+    "slot": "trait",
+    "text": "AFTER ROLLING ATTACK DICE, YOU MAY SPEND 1 ENERGY TO INCREASE 1 DIE BY 1.",
+    "effects": [{ "type": "text" }]
+  },
+  {
+    "id": "drain",
+    "name": "Drain",
+    "points": 5,
+    "slot": "gear",
+    "restrictions": { "characters": ["dr-ivanto"] },
+    "text": "AFTER DAMAGING A TARGET, IF THE TARGET HAS BLEED, YOU MAY REMOVE ALL BLEED FROM THE TARGET TO HEAL SELF FOR [1]+1.",
+    "effects": [{ "type": "text" }],
+    "attackLine": { "dice": 0, "kind": "heal" }
+  },
+  {
+    "id": "et-kwah-re",
+    "name": "Et-Kwah Re",
+    "points": 15,
+    "slot": "trait",
+    "restrictions": { "characters": ["starlight-defender"] },
+    "text": "GAIN THE COUNTER KEYWORD.",
+    "effects": [{ "type": "keyword", "keyword": "counter" }]
+  },
+  {
+    "id": "fire-boost",
+    "name": "Fire Boost",
+    "points": 5,
+    "slot": "trait",
+    "restrictions": { "characters": ["blaze"] },
+    "text": "YOU MAY SPEND HEAT FOR MOVEMENT INSTEAD OF ENERGY.",
+    "effects": [{ "type": "text" }]
+  },
+  {
+    "id": "focused-energy",
+    "name": "Focused Energy",
+    "points": 5,
+    "slot": "trait",
+    "restrictions": { "keywords": ["HEALER"] },
+    "text": "WHEN YOU REACH 2 HP OR LESS, GAIN 1 SHIELD. USAGE: 1",
+    "effects": [{ "type": "text" }]
+  },
+  {
+    "id": "frozen-aura",
+    "name": "Frozen Aura",
+    "points": 10,
+    "slot": "trait",
+    "restrictions": { "characters": ["glaciera"] },
+    "text": "AT THE START OF THE ACTION PHASE EACH ENEMY UNIT IN RANGE 3 OF THIS UNIT GAINS 1 SLOW.",
+    "effects": [{ "type": "text" }]
+  },
+  {
+    "id": "grappling-hook",
+    "name": "Grappling Hook",
+    "points": 10,
+    "slot": "gear",
+    "text": "GAIN THE FLIGHT KEYWORD.",
+    "effects": [{ "type": "keyword", "keyword": "flight" }]
+  },
+  {
+    "id": "guardian",
+    "name": "Guardian",
+    "points": 5,
+    "slot": "gear",
+    "restrictions": { "keywords": ["TANK"] },
+    "text": "WHEN AN ALLY WITHIN RANGE 2 TAKES DAMAGE, THIS UNIT MAY TAKE 1 DAMAGE TO LESSEN THE TARGET DAMAGE BY 1.",
+    "effects": [{ "type": "text" }]
+  },
+  {
+    "id": "hammer-spin",
+    "name": "Hammer Spin",
+    "points": 10,
+    "slot": "trait",
+    "restrictions": { "characters": ["eagle"] },
+    "text": "TARGET ALL UNITS IN RANGE.",
+    "effects": [{ "type": "text" }],
+    "attackLine": {
+      "dice": 3,
+      "range": { "min": 0, "max": 1 },
+      "energy": 2,
+      "kind": "melee"
+    }
+  },
+  {
+    "id": "illicit-substance",
+    "name": "Illicit Substance",
+    "points": 15,
+    "slot": "trait",
+    "restrictions": { "factions": ["villains"] },
+    "text": "GAIN +1 MAX HP. LOSE THE MORTAL KEYWORD.",
+    "effects": [{ "type": "stat", "stat": "hp", "delta": 1 }, { "type": "text" }]
+  },
+  {
+    "id": "katana-slash",
+    "name": "Katana Slash",
+    "points": 10,
+    "slot": "gear",
+    "restrictions": { "characters": ["starlight-defender"] },
+    "text": "MOVE TO ANY SQUARE IN RANGE 1 OF THE TARGET.",
+    "effects": [{ "type": "text" }],
+    "attackLine": {
+      "dice": 3,
+      "range": { "min": 0, "max": 1 },
+      "energy": 2,
+      "modifier": 1,
+      "kind": "melee"
+    }
+  },
+  {
+    "id": "last-stand",
+    "name": "Last Stand",
+    "points": 20,
+    "slot": "trait",
+    "restrictions": { "keywords": ["HERO"] },
+    "text": "GAIN +1 SHIELD FOR EACH DOWNED ALLY UNIT.",
+    "effects": [{ "type": "text" }]
+  },
+  {
+    "id": "launch",
+    "name": "Launch",
+    "points": 10,
+    "slot": "gear",
+    "restrictions": { "characters": ["mountain-jack"] },
+    "text": "MOVE TARGET UP TO RANGE 4.",
+    "effects": [{ "type": "text" }],
+    "attackLine": {
+      "dice": 3,
+      "range": { "min": 0, "max": 1 },
+      "energy": 1,
+      "modifier": -1,
+      "kind": "melee"
+    }
+  },
+  {
+    "id": "medkit",
+    "name": "Medkit",
+    "points": 10,
+    "slot": "gear",
+    "text": "HEAL SELF OR AN ALLY UNIT IN RANGE 1. USAGE: 1",
+    "effects": [{ "type": "text" }],
+    "attackLine": { "energy": 3, "dice": 0, "kind": "heal" }
+  },
+  {
+    "id": "nice-try",
+    "name": "Nice Try",
+    "points": 10,
+    "slot": "trait",
+    "restrictions": { "characters": ["reaper"] },
+    "text": "GAIN +1 SHIELD IF YOU HAVE BLEED.",
+    "effects": [{ "type": "text" }]
+  },
+  {
+    "id": "not-on-my-watch",
+    "name": "Not On My Watch",
+    "points": 10,
+    "slot": "trait",
+    "restrictions": { "keywords": ["LEADER"] },
+    "text": "WHEN AN ALLY UNIT IS DOWNED, YOU MAY RAISE THEM TO 1 HP. USAGE: 1",
+    "effects": [{ "type": "text" }]
+  },
+  {
+    "id": "nova-burst",
+    "name": "Nova Burst",
+    "points": 10,
+    "slot": "gear",
+    "restrictions": { "characters": ["blaze"] },
+    "text": "DEAL DAMAGE TO ALL UNITS IN RANGE. X = NUMBER OF HEAT.",
+    "effects": [{ "type": "text" }],
+    "attackLine": {
+      "range": { "min": 1, "max": 3 },
+      "kind": "ranged"
+    }
+  },
+  {
+    "id": "overwatch",
+    "name": "Overwatch",
+    "points": 10,
+    "slot": "trait",
+    "restrictions": { "characters": ["wolffe"] },
+    "text": "IF AN ALLY UNIT WITHIN RANGE 5 TAKES DAMAGE, COUNTER WITH [1] -1.",
+    "effects": [{ "type": "text" }]
+  },
+  {
+    "id": "poison",
+    "name": "Poison",
+    "points": 10,
+    "slot": "gear",
+    "restrictions": { "factions": ["villains"] },
+    "text": "TARGET GAINS STUNNED AND 1 BLEED. USAGE: 1",
+    "effects": [{ "type": "text" }],
+    "attackLine": {
+      "dice": 3,
+      "range": { "min": 0, "max": 1 },
+      "energy": 1,
+      "kind": "melee"
+    }
+  },
+  {
+    "id": "quick-escape",
+    "name": "Quick Escape",
+    "points": 5,
+    "slot": "trait",
+    "restrictions": { "characters": ["eagle"] },
+    "text": "AFTER TAKING DAMAGE, YOU MAY MAKE A 2 MOVEMENT. EXHAUST",
+    "effects": [{ "type": "text" }]
+  },
+  {
+    "id": "quick-step",
+    "name": "Quick Step",
+    "points": 5,
+    "slot": "trait",
+    "restrictions": { "keywords": ["MEDIUM", "SMALL"] },
+    "text": "AFTER AN ATTACK IS ROLLED AGAINST THIS UNIT, YOU MAY FORCE THE OPPONENT TO REROLL 1 DIE OF YOUR CHOICE. EXHAUST",
+    "effects": [{ "type": "text" }]
+  },
+  {
+    "id": "rally",
+    "name": "Rally",
+    "points": 10,
+    "slot": "gear",
+    "restrictions": { "keywords": ["HEALER"] },
+    "text": "RAISE A DOWNED ALLY IN RANGE 1 TO 1 HP. EXHAUST",
+    "effects": [{ "type": "text" }],
+    "attackLine": { "dice": 3, "kind": "heal" }
+  },
+  {
+    "id": "reposition",
+    "name": "Reposition",
+    "points": 10,
+    "slot": "trait",
+    "text": "AT THE END OF YOUR ACTIVATION, THIS UNIT MAY MAKE A 1 MOVEMENT.",
+    "effects": [{ "type": "text" }]
+  },
+  {
+    "id": "reckless",
+    "name": "Reckless",
+    "points": 5,
+    "slot": "trait",
+    "restrictions": { "characters": ["reaper"] },
+    "text": "GAIN 1 BLEED AND 2 ENERGY. EXHAUST.",
+    "effects": [{ "type": "text" }]
+  },
+  {
+    "id": "reuse",
+    "name": "Reuse",
+    "points": 5,
+    "slot": "trait",
+    "restrictions": { "characters": ["dr-ivanto"] },
+    "text": "REMOVE A DOWNED UNIT WITHIN RANGE 1, THEN HEAL A UNIT FOR 3",
+    "effects": [{ "type": "text" }],
+    "attackLine": {
+      "dice": 2,
+      "range": { "min": 1, "max": 3 },
+      "kind": "heal"
+    }
+  },
+  {
+    "id": "revitalize",
+    "name": "Revitalize",
+    "points": 10,
+    "slot": "trait",
+    "restrictions": { "keywords": ["COSMIC"] },
+    "text": "HEAL SELF FOR 1 HP. EXHAUST",
+    "effects": [{ "type": "text" }],
+    "attackLine": { "dice": 3, "kind": "heal" }
+  },
+  {
+    "id": "revive",
+    "name": "Revive",
+    "points": 15,
+    "slot": "trait",
+    "restrictions": { "characters": ["divinity"] },
+    "text": "RAISE A DOWNED ALLY IN RANGE 1. THAT UNIT HEALS A MAX OF 4 HP. EXHAUST",
+    "effects": [{ "type": "text" }],
+    "attackLine": { "dice": 5, "kind": "heal" }
+  },
+  {
+    "id": "rush",
+    "name": "Rush",
+    "points": 10,
+    "slot": "trait",
+    "restrictions": { "characters": ["reaper"] },
+    "text": "BEFORE ATTACKING, MOVE TO RANGE 1 OF THE TARGET.",
+    "effects": [{ "type": "text" }],
+    "attackLine": {
+      "dice": 3,
+      "range": { "min": 0, "max": 2 },
+      "energy": 1,
+      "modifier": 2,
+      "kind": "melee"
+    }
+  },
+  {
+    "id": "scope",
+    "name": "Scope",
+    "points": 15,
+    "slot": "gear",
+    "restrictions": { "keywords": ["MILITARY"] },
+    "text": "AFTER MAKING A ATTACK, YOU MAY REROLL 1 DIE. EXHAUST",
+    "effects": [{ "type": "text" }]
+  },
+  {
+    "id": "serrated-knife",
+    "name": "Serrated Knife",
+    "points": 5,
+    "slot": "gear",
+    "text": "ATTACKS DEAL +1 BLEED.",
+    "effects": [{ "type": "text" }]
+  },
+  {
+    "id": "scythe",
+    "name": "Scythe",
+    "points": 15,
+    "slot": "gear",
+    "restrictions": { "characters": ["dr-ivanto"] },
+    "text": "TARGET ALL ENEMY UNITS IN RANGE. CRIT APPLIES 1 BLEED.",
+    "effects": [{ "type": "text" }],
+    "attackLine": {
+      "dice": 3,
+      "range": { "min": 0, "max": 1 },
+      "energy": 2,
+      "kind": "melee"
+    }
+  },
+  {
+    "id": "shuriken",
+    "name": "Shuriken",
+    "points": 10,
+    "slot": "gear",
+    "restrictions": { "characters": ["starlight-defender"] },
+    "text": "[1] -1",
+    "effects": [{ "type": "text" }],
+    "attackLine": {
+      "dice": 1,
+      "range": { "min": 1, "max": 2 },
+      "energy": 1,
+      "modifier": -1,
+      "kind": "ranged"
+    }
+  },
+  {
+    "id": "smoke-grenade",
+    "name": "Smoke Grenade",
+    "points": 10,
+    "slot": "gear",
+    "text": "GAIN 1 STEALTH. USAGE: 1",
+    "effects": [{ "type": "text" }]
+  },
+  {
+    "id": "spiked-hammer",
+    "name": "Spiked Hammer",
+    "points": 10,
+    "slot": "gear",
+    "restrictions": { "characters": ["eagle"] },
+    "text": "AFTER ROLLING FOR ATTACK, IF A CRIT IS ROLLED DEAL +1 DAMAGE.",
+    "effects": [{ "type": "text" }]
+  },
+  {
+    "id": "smash",
+    "name": "Smash",
+    "points": 10,
+    "slot": "gear",
+    "restrictions": { "characters": ["mountain-jack"] },
+    "text": "REMOVE 1 TERRAIN IN RANGE 1.",
+    "effects": [{ "type": "text" }],
+    "attackLine": {
+      "dice": 3,
+      "range": { "min": 0, "max": 0 },
+      "kind": "melee"
+    }
+  },
+  {
+    "id": "stunning-strike",
+    "name": "Stunning Strike",
+    "points": 10,
+    "slot": "trait",
+    "restrictions": { "keywords": ["VIGILANTE", "TANK"] },
+    "text": "WHEN MAKING A MELEE ATTACK, IF A CRIT IS ROLLED, ENEMY GAINS STUNNED.",
+    "effects": [{ "type": "text" }]
+  },
+  {
+    "id": "syun-te",
+    "name": "Syun Te",
+    "points": 10,
+    "slot": "trait",
+    "restrictions": { "characters": ["starlight-defender"] },
+    "text": "AFTER ROLLING AN ATTACK, YOU MAY TURN 1 DIE TO 6. EXHAUST",
+    "effects": [{ "type": "text" }]
+  },
+  {
+    "id": "unstable-form",
+    "name": "Unstable Form",
+    "points": 15,
+    "slot": "trait",
+    "restrictions": { "keywords": ["COSMIC"] },
+    "text": "GAIN +1 SHIELD AGAINST ATTACKS.",
+    "effects": [{ "type": "text" }]
+  }
+]

@@ -1,0 +1,82 @@
+[
+  {
+    "id": "calm-yourself",
+    "name": "Calm Yourself",
+    "characterId": "divinity",
+    "text": "THIS UNIT HEALS 1 HP. YOU MAY REMOVE 1 EFFECT TOKEN FROM EACH ALLY UNIT."
+  },
+  {
+    "id": "cosmic-boost",
+    "name": "Cosmic Boost",
+    "text": "ALL UNACTIVATED ALLY UNITS GAIN +1 MAX ENERGY THIS ROUND."
+  },
+  {
+    "id": "fight-for-me",
+    "name": "Fight For Me",
+    "characterId": "dr-ivanto",
+    "text": "SELECT AN ALLY UNIT THAT WAS DOWNED THIS ROUND. RAISE IT TO 2 HP."
+  },
+  {
+    "id": "fight-on-friends",
+    "name": "Fight On Friends!",
+    "characterId": "eagle",
+    "text": "ALL ALLY UNITS IN RANGE 5 OF THIS UNIT HEAL FOR 1 HP."
+  },
+  {
+    "id": "forward",
+    "name": "Forward",
+    "text": "ALL ALLIES MAY MAKE A 2 MOVEMENT."
+  },
+  {
+    "id": "go-forth-my-minions",
+    "name": "Go Forth My Minions",
+    "characterId": "siphon",
+    "text": "ALL CORRUPTED UNITS HEAL TO MAX HP. ALL CORRUPTED UNITS MAY MAKE A 2 MOVEMENT. IF THER ARE NO CORRUPTED UNITS ON THE BOARD, YOU MAY PLACE 1 CORRUPTED UNIT IN RANGE 2 OF THIS UNIT."
+  },
+  {
+    "id": "im-on-fire",
+    "name": "I'm On Fire",
+    "characterId": "blaze",
+    "text": "THIS UNIT GAINS 6 HEAT TOKENS."
+  },
+  {
+    "id": "immovable",
+    "name": "Immovable",
+    "characterId": "mountain-jack",
+    "text": "THIS UNIT GAINS 1 SHIELD. SELECT AN ENEMY UNIT IN RANGE 3 OF THIS UNIT TO GAIN 1 STUNNED."
+  },
+  {
+    "id": "no-one-escapes-me",
+    "name": "No One Escapes Me",
+    "characterId": "wolffe",
+    "text": "AT THE END OF ACTIVATION, THIS UNIT MAY TAKE THE SNIPER SHOT ACTION FOR 0 ENERGY AGAINST A UNIT ALREADY TARGETED THIS TURN."
+  },
+  {
+    "id": "one-with-shadows",
+    "name": "One With Shadows",
+    "characterId": "starlight-defender",
+    "text": "THIS UNIT GAINS 1 STEALTH. THIS UNIT GAINS +3 MOVEMENT FOR THIS ACTIVATION."
+  },
+  {
+    "id": "restore",
+    "name": "Restore",
+    "text": "HEAL UP TO 3 HP ON ALLY UNITS. (TOTAL NOT EACH)"
+  },
+  {
+    "id": "sabotage",
+    "name": "Sabotage",
+    "text": "REMOVE ALL ENERGY FROM 1 ENEMY UNIT OF YOUR CHOICE."
+  },
+  {
+    "id": "suffer",
+    "name": "Suffer!",
+    "characterId": "reaper",
+    "text": "ENEMY UNITS IN RANGE 2 OF THIS UNIT GAIN 1 BLEED. ALL ENEMY UNITS WITH BLEED TAKE 1 DAMAGE."
+  },
+  {
+    "id": "white-out",
+    "name": "White Out",
+    "characterId": "glaciera",
+    "text": "ALL ENEMY UNITS IN RANGE 4 OF THIS UNIT GAIN 1 SLOW. YOU MAY PLACE AN ICE WALL IN RANGE 3 OF THIS UNIT."
+  }
+]

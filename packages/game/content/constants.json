@@ -1,0 +1,14 @@
+{
+  "teamPointCap": 700,
+  "freeMovement": 2,
+  "maxRounds": 8,
+  "epicDeckSize": 5,
+  "defendEnergyCost": 2,
+  "objectiveActionCost": 2,
+  "mapSize": 24,
+  "tileSize": 8,
+  "startingZoneSize": 3,
+  "healThreshold": 2,
+  "rerollEnergyCost": 1,
+  "diagonalAlternating": true
+}

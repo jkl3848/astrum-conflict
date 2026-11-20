@@ -1,0 +1,27 @@
+{
+  "name": "astrum-conflict",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "functions"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w @astrum/web",
+    "build": "npm run build -w @astrum/game && npm run build -w @astrum/web",
+    "build:functions": "npm run build -w @astrum/functions",
+    "test": "npm run test -w @astrum/game",
+    "content:check": "npm run content:check -w @astrum/game",
+    "content:diff": "npm run content:diff -w @astrum/game",
+    "content:release": "npm run content:release -w @astrum/game --",
+    "upload-assets": "tsx scripts/upload-assets.ts",
+    "emulators": "firebase emulators:start",
+    "deploy": "npm run build && firebase deploy"
+  },
+  "devDependencies": {
+    "firebase-tools": "^14.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}

@@ -1,0 +1,51 @@
+[
+  {
+    "id": "bleed",
+    "name": "Bleed",
+    "short": "At the start of the Refresh Phase, take 1 damage.",
+    "stacks": true,
+    "removedOnRefresh": true
+  },
+  {
+    "id": "slow",
+    "name": "Slow",
+    "short": "Cannot take free movement.",
+    "max": 1,
+    "removedOnRefresh": true
+  },
+  {
+    "id": "stunned",
+    "name": "Stunned",
+    "short": "Remove all Energy. Cannot gain Energy. Cannot gain Stunned if already Stunned.",
+    "max": 1,
+    "removedOnRefresh": true
+  },
+  {
+    "id": "shield",
+    "name": "Shield",
+    "short": "Spend when declared the target of an attack to gain +1 Defense for that attack. Max 1. Not removed during Refresh.",
+    "max": 1,
+    "removedOnRefresh": false
+  },
+  {
+    "id": "stealth",
+    "name": "Stealth",
+    "short": "Cannot be targeted by attacks. Remove when this unit makes an attack. Max 1.",
+    "max": 1,
+    "removedOnRefresh": true
+  },
+  {
+    "id": "heat",
+    "name": "Heat",
+    "short": "Track heat from fire abilities. Resolve per card text.",
+    "stacks": true,
+    "removedOnRefresh": true
+  },
+  {
+    "id": "exposed",
+    "name": "Exposed",
+    "short": "Unit is exposed. Resolve per card text.",
+    "max": 1,
+    "removedOnRefresh": true
+  }
+]

@@ -1,0 +1,152 @@
+- id: energy
+  term: Energy
+  aliases: [ENERGY]
+  short: Spend Energy to perform actions beyond Free Movement.
+  icon: energy
+  section: unit-actions
+- id: hp
+  term: HP
+  aliases: [Hit Points, Health]
+  short: When a unit reaches 0 HP, they are Downed.
+  icon: heart
+  section: downed
+- id: defense
+  term: Defense
+  aliases: [DEF]
+  short: Attack dice must roll greater than Defense to hit. A natural 6 always hits.
+  icon: defense
+  section: combat
+- id: armor
+  term: Armor
+  aliases: ["Armor:"]
+  short: Reduce incoming damage by X. Does not apply to Status Effect damage.
+  section: keywords
+- id: flight
+  term: Flight
+  aliases: [FLIGHT]
+  short: Can move through Terrain, change elevation, and end on top of Terrain.
+  section: keywords
+- id: counter
+  term: Counter
+  short: After being attacked, make a Basic Attack against the Attacker if in range.
+  section: keywords
+- id: bleed
+  term: Bleed
+  short: At the start of the Refresh Phase, take 1 damage.
+  icon: bleed
+  section: status-effects
+- id: slow
+  term: Slow
+  short: Cannot take Free Movement.
+  icon: slow
+  section: status-effects
+- id: stunned
+  term: Stunned
+  aliases: [Stun]
+  short: Remove all Energy. Cannot gain Energy. Cannot gain Stunned if already Stunned.
+  icon: stun
+  section: status-effects
+- id: shield
+  term: Shield
+  short: Spend when targeted to gain +1 Defense for that attack. Max 1. Not removed on Refresh.
+  icon: shield
+  section: status-effects
+- id: stealth
+  term: Stealth
+  short: Cannot be targeted by attacks. Removed when this unit attacks. Max 1.
+  icon: stealth
+  section: status-effects
+- id: heat
+  term: Heat
+  short: Status from fire abilities. Resolve per card text.
+  icon: heat
+  section: status-effects
+- id: range
+  term: Range
+  aliases: ["RANGE", "Range:"]
+  short: Distance in squares using alternating diagonal costs.
+  section: measuring
+- id: target
+  term: Target
+  aliases: [TARGET]
+  short: The unit chosen for an attack or ability.
+  section: combat
+- id: crit
+  term: Crit
+  aliases: [CRIT]
+  short: A natural 6 before modifiers. Always succeeds regardless of Defense.
+  section: combat
+- id: downed
+  term: Downed
+  short: A unit at 0 HP. Token stays on the board; flip the character card.
+  section: downed
+- id: free-movement
+  term: Free Movement
+  short: At the start of activation, move up to 2 spaces for 0 Energy (plus bonuses).
+  section: movement
+- id: recovery-phase
+  term: Recovery Phase
+  aliases: [Refresh Phase, Recovery]
+  short: Unexhaust cards, replenish max Energy, resolve status effects, remove one of each status.
+  section: gameplay-overview
+- id: line-of-sight
+  term: Line of Sight
+  aliases: [LOS]
+  short: A straight line between bases that does not pass through Terrain, Building walls, or units.
+  section: combat
+- id: upgrade
+  term: Upgrade
+  aliases: [Upgrades]
+  short: Gear or Trait cards equipped in a unit's upgrade slots. Points count toward the team total.
+  section: building-teams
+- id: epic-card
+  term: Epic Card
+  aliases: [Epic]
+  short: Powerful one-shot cards. Build a deck of 5. Draw when an ally is Downed.
+  section: epic-cards
+- id: objective
+  term: Objective
+  short: Scenario tokens claimed or controlled for victory points.
+  section: scenarios
+- id: activation
+  term: Activation
+  short: Taking a turn with one unit — Free Movement, then Actions.
+  section: gameplay-overview
+- id: gear
+  term: Gear
+  short: Upgrade slot type (wrench icon).
+  section: building-teams
+- id: trait
+  term: Trait
+  short: Upgrade slot type (brain icon).
+  section: building-teams
+- id: usage
+  term: Usage
+  aliases: ["Usage:"]
+  short: Ability may be used X times, then discarded.
+  section: keywords
+- id: copies
+  term: Copies
+  aliases: ["Copies:"]
+  short: You may include up to X copies of this unit on a team.
+  section: keywords
+- id: breakable
+  term: Breakable
+  aliases: ["Breakable:"]
+  short: Requires X damage to destroy. Breakable objects have Defense 4.
+  section: keywords
+- id: immune
+  term: Immune
+  aliases: ["Immune:"]
+  short: Cannot be affected by the listed condition.
+  section: keywords
+- id: melee
+  term: Melee
+  short: Close combat. Cannot target units on different elevations.
+  icon: melee
+  section: combat
+- id: ranged
+  term: Ranged
+  short: Attack at distance. Requires Line of Sight.
+  icon: ranged
+  section: combat
