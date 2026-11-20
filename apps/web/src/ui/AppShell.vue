@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import { RouterLink } from 'vue-router'
+import { computed, onMounted } from 'vue'
+import { RouterLink, useRoute } from 'vue-router'
 import { contentVersion } from '@astrum/game'
 import { useAuthStore } from '../stores/auth'
 import GameLogo from './GameLogo.vue'
 
 const auth = useAuthStore()
+const route = useRoute()
+const isPlay = computed(() => route.name === 'play')
 onMounted(() => auth.init())
 
 const primaryLinks = [
@@ -17,7 +19,7 @@ const primaryLinks = [
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col">
+  <div class="flex min-h-dvh flex-col" :class="isPlay ? 'h-dvh overflow-hidden' : 'min-h-screen'">
     <header class="sticky top-0 z-40 border-b-4 border-black bg-[rgba(11,11,12,0.92)] backdrop-blur">
       <div class="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-2 md:gap-4">
         <GameLogo max-height-class="max-h-10 md:max-h-12" priority="eager" />
@@ -40,10 +42,10 @@ const primaryLinks = [
         </nav>
       </div>
     </header>
-    <main class="flex-1">
+    <main class="flex min-h-0 flex-1 flex-col">
       <slot />
     </main>
-    <footer class="border-t border-[var(--color-plum)] px-4 py-4 text-center text-xs text-white/50">
+    <footer v-if="!isPlay" class="border-t border-[var(--color-plum)] px-4 py-4 text-center text-xs text-white/50">
       Astrum Conflict · Print-friendly minis, now online · Art stays off GitHub
     </footer>
   </div>
