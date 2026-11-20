@@ -5,13 +5,25 @@ export const MAP_SIZE = gameConstants.mapSize
 export const TILE_SIZE = gameConstants.tileSize
 export const STARTING_ZONE = gameConstants.startingZoneSize
 export const BOARD_CENTER = MAP_SIZE / 2 - 0.5
+export const BUILDING_EDGE_GAP = 2
 
-export const MAP_BUILDINGS = [
-  { x: 8, y: 8, w: 3, h: 3 },
-  { x: 13, y: 8, w: 3, h: 3 },
-  { x: 8, y: 13, w: 3, h: 3 },
-  { x: 13, y: 13, w: 3, h: 3 },
-] as const
+export type EntranceDir = 'N' | 'S' | 'E' | 'W'
+
+export interface BoardBuilding {
+  id: string
+  x: number
+  y: number
+  w: number
+  h: number
+  entrance: EntranceDir
+}
+
+export const DEFAULT_BUILDINGS: BoardBuilding[] = [
+  { id: 'b1', x: 8, y: 8, w: 3, h: 3, entrance: 'S' },
+  { id: 'b2', x: 13, y: 8, w: 3, h: 3, entrance: 'S' },
+  { id: 'b3', x: 8, y: 13, w: 3, h: 3, entrance: 'N' },
+  { id: 'b4', x: 13, y: 13, w: 3, h: 3, entrance: 'N' },
+]
 
 export function cellKey(x: number, y: number): string {
   return `${x},${y}`
@@ -45,18 +57,55 @@ export function isStartingZone(x: number, y: number, seat?: 'A' | 'B'): boolean 
   })
 }
 
-export function buildingCells(): Set<string> {
-  const cells = new Set<string>()
-  for (const b of MAP_BUILDINGS) {
-    for (let x = b.x; x < b.x + b.w; x++) {
-      for (let y = b.y; y < b.y + b.h; y++) {
-        cells.add(cellKey(x, y))
+export function footprintKeys(b: BoardBuilding): string[] {
+  const keys: string[] = []
+  for (let x = b.x; x < b.x + b.w; x++) {
+    for (let y = b.y; y < b.y + b.h; y++) {
+      keys.push(cellKey(x, y))
+    }
+  }
+  return keys
+}
+
+export function chebyshev(ax: number, ay: number, bx: number, by: number): number {
+  return Math.max(Math.abs(ax - bx), Math.abs(ay - by))
+}
+
+export function placementError(b: BoardBuilding, others: BoardBuilding[]): string | null {
+  if (b.x < BUILDING_EDGE_GAP || b.y < BUILDING_EDGE_GAP) {
+    return 'Buildings must sit at least 2 squares from the map edge.'
+  }
+  if (b.x + b.w > MAP_SIZE - BUILDING_EDGE_GAP || b.y + b.h > MAP_SIZE - BUILDING_EDGE_GAP) {
+    return 'Buildings must sit at least 2 squares from the map edge.'
+  }
+  const startCells = [...startingSquares('A'), ...startingSquares('B')]
+  for (let x = b.x; x < b.x + b.w; x++) {
+    for (let y = b.y; y < b.y + b.h; y++) {
+      for (const s of startCells) {
+        if (chebyshev(x, y, s.x, s.y) <= BUILDING_EDGE_GAP) {
+          return 'Buildings cannot be within 2 squares of a starting zone.'
+        }
       }
     }
   }
-  return cells
+  for (const o of others) {
+    const overlap = !(
+      b.x + b.w <= o.x ||
+      o.x + o.w <= b.x ||
+      b.y + b.h <= o.y ||
+      o.y + o.h <= b.y
+    )
+    if (overlap) return 'Buildings cannot overlap.'
+  }
+  return null
 }
 
 export function isMapTileSeam(x: number, y: number): boolean {
   return x % TILE_SIZE === 0 || y % TILE_SIZE === 0
+}
+
+export function diceFormula(dice: number, modifier = 0): string {
+  if (dice <= 0) return '—'
+  if (!modifier) return `${dice}d6`
+  return `${dice}d6${modifier > 0 ? '+' : ''}${modifier}`
 }

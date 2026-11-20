@@ -9,6 +9,7 @@ import RulesDrawer from '../ui/RulesDrawer.vue'
 import DiceTray from '../ui/DiceTray.vue'
 import TeamPicker from '../ui/TeamPicker.vue'
 import UnitInspector from '../ui/UnitInspector.vue'
+import EpicHand from '../ui/EpicHand.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -18,8 +19,23 @@ const displayName = ref('Player')
 const shareNote = ref('')
 const statusKeys: StatusId[] = ['bleed', 'slow', 'stunned', 'shield', 'stealth']
 
-const code = computed(() => String(route.params.code || store.game?.code || ''))
 const bothTeamsReady = computed(() => store.canStart())
+const playMode = computed(() => store.game?.playMode ?? 'local')
+const isLocal = computed(() => playMode.value === 'local')
+const selectedBuilding = computed(() =>
+  store.game?.buildings.find((b) => b.id === store.selectedBuildingId) ?? null,
+)
+const activeName = computed(() => {
+  const g = store.game
+  if (!g) return ''
+  return g.players[g.activeSeat].name || `Player ${g.activeSeat}`
+})
+const turnBanner = computed(() => {
+  const g = store.game
+  if (!g) return ''
+  if (g.status === 'setup') return 'Setup — place buildings'
+  return `${activeName.value}'s turn`
+})
 
 onMounted(() => {
   if (!store.game) {
@@ -65,11 +81,6 @@ async function share() {
   }
 }
 
-function joinAsB() {
-  if (!store.game) return
-  store.joinLocal(store.game.code, displayName.value || 'Guest')
-}
-
 function pickFaction(faction: Faction) {
   store.setFaction('A', faction)
 }
@@ -90,11 +101,33 @@ function pickTeam(seat: 'A' | 'B', list: TeamList) {
       <div class="ink-panel p-6">
         <h1 class="comic-title text-3xl">Lobby · {{ store.game.code }}</h1>
         <p class="mt-2 text-sm text-white/70">
-          Share a link, pick factions, then load a saved list or draft before the match starts.
+          Choose local hotseat or an online room, then load a saved list or draft.
         </p>
+
+        <div class="mt-4">
+          <p class="text-xs uppercase tracking-wide text-white/50">Match type</p>
+          <div class="mt-2 flex flex-wrap gap-2">
+            <button
+              type="button"
+              class="comic-btn"
+              :class="isLocal ? '' : 'secondary'"
+              @click="store.setPlayMode('local')"
+            >Local</button>
+            <button
+              type="button"
+              class="comic-btn"
+              :class="isLocal ? 'secondary' : ''"
+              @click="store.setPlayMode('online')"
+            >Online</button>
+          </div>
+          <p class="mt-2 text-sm text-white/70">
+            <template v-if="isLocal">Hotseat on this device — pick both teams.</template>
+            <template v-else>Pick only your team. Share the link so Player B can pick theirs.</template>
+          </p>
+        </div>
+
         <div class="mt-4 flex flex-wrap gap-2">
           <button type="button" class="comic-btn" @click="share">Share Link</button>
-          <button type="button" class="comic-btn secondary" @click="joinAsB">Sit as Player B (local)</button>
         </div>
         <p v-if="shareNote" class="mt-2 text-xs text-[var(--color-teal)]">{{ shareNote }}</p>
         <label class="mt-4 block text-sm">
@@ -104,8 +137,10 @@ function pickTeam(seat: 'A' | 'B', list: TeamList) {
       </div>
 
       <div class="mt-4 ink-panel p-4">
-        <h2 class="comic-title text-xl">Player A faction</h2>
-        <p class="mt-1 text-sm text-white/70">Player A chooses Heroes or Villains. Player B takes the other side.</p>
+        <h2 class="comic-title text-xl">{{ isLocal ? 'Player A faction' : 'Your faction' }}</h2>
+        <p class="mt-1 text-sm text-white/70">
+          Player A chooses Heroes or Villains. Player B takes the other side.
+        </p>
         <div class="mt-3 flex flex-wrap gap-2">
           <button
             type="button"
@@ -124,19 +159,31 @@ function pickTeam(seat: 'A' | 'B', list: TeamList) {
 
       <div class="mt-4 grid gap-4 md:grid-cols-2">
         <TeamPicker
+          v-if="store.canEditSeat('A')"
           seat="A"
           :faction="store.game.players.A.faction"
           :selected="store.game.lists.A"
           @pick="pickTeam('A', $event)"
           @clear="store.clearTeam('A')"
         />
+        <div v-else class="ink-panel p-4">
+          <h3 class="comic-title text-xl">Player A</h3>
+          <p class="mt-2 text-sm text-white/70">Waiting for Player A to pick a team.</p>
+        </div>
         <TeamPicker
+          v-if="store.canEditSeat('B')"
           seat="B"
           :faction="store.game.players.B.faction"
           :selected="store.game.lists.B"
           @pick="pickTeam('B', $event)"
           @clear="store.clearTeam('B')"
         />
+        <div v-else class="ink-panel p-4">
+          <h3 class="comic-title text-xl">Player B</h3>
+          <p class="mt-2 text-sm text-white/70">
+            {{ store.game.lists.B ? 'Team locked in.' : 'Waiting for Player B to join and pick a team.' }}
+          </p>
+        </div>
       </div>
 
       <div class="mt-6 flex flex-wrap items-center gap-3">
@@ -146,7 +193,9 @@ function pickTeam(seat: 'A' | 'B', list: TeamList) {
           :disabled="!bothTeamsReady"
           @click="store.startMatch()"
         >Start Match</button>
-        <span class="text-sm text-white/60">Both players need a team with at least one unit.</span>
+        <span class="text-sm text-white/60">
+          {{ isLocal ? 'Both seats need a team.' : 'Both players need a team before you can start.' }}
+        </span>
         <button type="button" class="ml-auto text-xs underline text-white/50" @click="store.quickStart()">
           Practice with sample squads
         </button>
@@ -155,11 +204,26 @@ function pickTeam(seat: 'A' | 'B', list: TeamList) {
 
     <template v-else-if="store.game">
       <header class="flex flex-wrap items-center gap-3 border-b-2 border-black bg-black/40 px-3 py-2">
-        <div class="comic-title text-xl md:text-2xl">Round {{ store.game.round }}</div>
-        <div class="rounded border-2 border-black bg-black/40 px-2 py-1 text-sm">
-          {{ store.game.phase }} · Seat {{ store.game.activeSeat }}
+        <div
+          class="comic-title rounded border-2 border-black px-3 py-1 text-xl md:text-2xl"
+          :class="store.game.status === 'setup'
+            ? 'bg-[var(--color-banner)] text-black'
+            : store.game.activeSeat === 'A'
+              ? 'bg-[var(--color-teal)] text-black'
+              : 'bg-[var(--color-villain-red)] text-white'"
+        >
+          {{ turnBanner }}
         </div>
-        <div class="text-sm">A {{ store.game.scores.A }} — {{ store.game.scores.B }} B</div>
+        <div class="rounded border-2 border-black bg-black/40 px-2 py-1 text-sm">
+          Round {{ store.game.round }} · {{ store.game.phase }}
+        </div>
+        <div class="rounded border-2 border-black bg-black/40 px-2 py-1 text-sm font-bold">
+          {{ store.game.players.A.name || 'A' }}
+          <span class="text-[var(--color-teal)]">{{ store.game.scores.A }} pts</span>
+          —
+          <span class="text-[var(--color-villain-red)]">{{ store.game.scores.B }} pts</span>
+          {{ store.game.players.B.name || 'B' }}
+        </div>
         <div class="ml-auto flex gap-2">
           <button type="button" class="comic-btn secondary !py-1 !px-3 text-sm" @click="drawer.open()">Rules (?)</button>
           <button type="button" class="comic-btn secondary !py-1 !px-3 text-sm" @click="share">Share</button>
@@ -169,15 +233,39 @@ function pickTeam(seat: 'A' | 'B', list: TeamList) {
       <div class="grid min-h-0 flex-1 lg:grid-cols-[13rem_minmax(0,1fr)_22rem]">
         <aside class="max-h-[calc(100dvh-8rem)] space-y-2 overflow-y-auto border-r border-black/40 p-2">
           <div
+            v-if="store.game.status === 'setup'"
+            class="rounded border-2 border-black/50 bg-black/35 p-2 text-xs text-white/80"
+          >
+            Buildings are walls with a doorway. Click one to select, click it again to deselect, or pick a different building.
+          </div>
+          <button
+            v-for="b in store.game.buildings"
+            v-show="store.game.status === 'setup'"
+            :key="b.id"
+            type="button"
+            class="w-full rounded border-2 border-black/50 bg-black/35 p-2 text-left text-sm"
+            :class="b.id === store.selectedBuildingId ? 'ring-2 ring-[var(--color-banner)]' : ''"
+            @click="store.selectBuilding(b.id)"
+          >
+            Building {{ b.id }} · {{ b.w }}×{{ b.h }} · door {{ b.entrance }}
+          </button>
+          <div
             v-for="u in store.game.units"
             :key="u.id"
             class="w-full cursor-pointer rounded border-2 border-black/50 bg-black/35 p-2 text-left"
-            :class="u.id === store.selectedUnitId ? 'ring-2 ring-[var(--color-teal)]' : ''"
+            :class="{
+              'ring-2 ring-[var(--color-teal)]': u.id === store.selectedUnitId,
+              'opacity-50': u.activated && u.id !== store.selectedUnitId,
+            }"
             @click="store.selectUnit(u.id)"
           >
             <div class="flex justify-between text-sm font-bold">
               <span>{{ getCharacter(u.characterId)?.name }}</span>
-              <span class="text-[10px] uppercase text-white/50">{{ u.seat }}</span>
+              <span class="text-[10px] uppercase text-white/50">
+                {{ u.seat }}
+                <template v-if="u.activated"> · done</template>
+                <template v-else-if="u.id === store.activatingUnitId"> · acting</template>
+              </span>
             </div>
             <div class="mt-1 text-xs">
               <span class="text-[var(--color-hp)]">{{ u.hp }}/{{ u.maxHp }}</span>
@@ -202,11 +290,42 @@ function pickTeam(seat: 'A' | 'B', list: TeamList) {
         </div>
 
         <aside class="flex min-h-0 flex-col gap-2 overflow-y-auto border-l border-black/40 p-2">
+          <div v-if="store.game.status === 'setup'" class="ink-panel p-4">
+            <h3 class="comic-title text-lg">Building setup</h3>
+            <p class="mt-1 text-sm text-white/70">
+              Open walls, no roof. Keep them 2 squares from the map edge and starting zones.
+            </p>
+            <p v-if="selectedBuilding" class="mt-2 text-sm">
+              Selected {{ selectedBuilding.id }} at {{ selectedBuilding.x }},{{ selectedBuilding.y }} · door {{ selectedBuilding.entrance }}
+            </p>
+            <p v-else class="mt-2 text-sm text-white/60">No building selected.</p>
+            <div class="mt-3 flex flex-wrap gap-2">
+              <button
+                type="button"
+                class="comic-btn secondary !py-1 !px-3 text-sm"
+                :disabled="!selectedBuilding"
+                @click="store.rotateBuildingEntrance()"
+              >Rotate entrance</button>
+              <button
+                type="button"
+                class="comic-btn secondary !py-1 !px-3 text-sm"
+                :disabled="!selectedBuilding"
+                @click="store.clearBuildingSelection()"
+              >Deselect</button>
+              <button type="button" class="comic-btn !py-1 !px-3 text-sm" @click="store.confirmSetup()">
+                Lock buildings & begin
+              </button>
+            </div>
+          </div>
           <UnitInspector v-if="store.selectedUnit" :unit="store.selectedUnit" />
-          <div v-else class="ink-panel p-4 text-sm text-white/70">Click a unit on the board to see stats and abilities.</div>
-          <div v-if="store.selectedUnit" class="flex flex-wrap gap-2 px-1">
+          <div v-else class="ink-panel p-4 text-sm text-white/70">
+            {{ store.game.status === 'setup' ? 'Place buildings, then begin the match.' : 'Choose one unactivated character. Green squares are free; gold costs energy.' }}
+          </div>
+          <div v-if="store.selectedUnit && store.game.status === 'playing'" class="flex flex-wrap gap-2 px-1">
             <button type="button" class="comic-btn !py-1 !px-3 text-sm" @click="store.endActivation()">End Activation</button>
           </div>
+          <EpicHand v-if="store.game.status === 'playing'" seat="A" />
+          <EpicHand v-if="store.game.status === 'playing'" seat="B" />
           <DiceTray />
           <div class="ink-panel max-h-40 overflow-y-auto p-3">
             <h3 class="comic-title text-lg">Log</h3>

@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { deriveUnitStats, getCharacter, getUpgrade, type Ability, type UnitState } from '@astrum/game'
 import { useGameStore } from '../stores/game'
+import { diceFormula } from '../board/layout'
 import RulesText from './RulesText.vue'
 
 const props = defineProps<{
@@ -16,13 +17,23 @@ const upgrades = computed(() =>
 const derived = computed(() =>
   character.value ? deriveUnitStats(character.value, upgrades.value) : null,
 )
+const myTurn = computed(() => store.canActWith(props.unit))
 
-function rollAbility(ab: Ability) {
-  if (ab.kind === 'heal' || ab.kind === 'special') {
-    store.rollAttackOnline(ab.dice, ab.modifier ?? 0)
-    return
-  }
-  store.rollAttackOnline(ab.dice, ab.modifier ?? 0)
+function formula(ab: Ability) {
+  return diceFormula(ab.dice, ab.modifier ?? 0)
+}
+
+function rollLabel(ab: Ability) {
+  if (ab.dice <= 0) return `Use · spend ${ab.energy} EN`
+  return `Roll ${formula(ab)} · spend ${ab.energy} EN`
+}
+
+function canAfford(ab: Ability) {
+  return myTurn.value && props.unit.energy >= ab.energy
+}
+
+function useAbility(ab: Ability) {
+  store.useAbility(ab)
 }
 </script>
 
@@ -62,7 +73,10 @@ function rollAbility(ab: Ability) {
         </div>
       </div>
       <p class="mt-2 text-xs text-white/70">
-        Free move {{ unit.freeMoveRemaining }} · {{ unit.activated ? 'Activated' : 'Ready' }}
+        Free move {{ unit.freeMoveRemaining }} ·
+        <span v-if="unit.id === store.activatingUnitId">Acting this turn</span>
+        <span v-else-if="unit.activated">Activated</span>
+        <span v-else>Ready</span>
         <span v-if="unit.downed" class="text-[var(--color-villain-red)]"> · DOWNED</span>
       </p>
     </header>
@@ -79,19 +93,23 @@ function rollAbility(ab: Ability) {
           v-for="ab in (derived?.abilities ?? character.abilities)"
           :key="ab.id"
           type="button"
-          class="mt-2 w-full border-2 border-black bg-[rgba(232,184,74,0.92)] px-2 py-2 text-left text-black"
-          @click="rollAbility(ab)"
+          class="mt-2 w-full border-2 border-black px-2 py-2 text-left text-black"
+          :class="canAfford(ab) ? 'bg-[rgba(232,184,74,0.92)]' : 'bg-[rgba(232,184,74,0.45)]'"
+          :disabled="store.game?.status !== 'playing' || unit.downed"
+          @click="useAbility(ab)"
         >
           <div class="flex flex-wrap items-center justify-between gap-1 font-bold uppercase text-sm">
             <span>{{ ab.name }}</span>
             <span class="text-xs">
-              {{ ab.kind }} · {{ ab.dice }}d6 · E{{ ab.energy }} · R{{ ab.range.min }}–{{ ab.range.max }}
-              <template v-if="ab.modifier"> · {{ ab.modifier > 0 ? '+' : '' }}{{ ab.modifier }}</template>
+              {{ ab.kind }} · {{ formula(ab) }} · R{{ ab.range.min }}–{{ ab.range.max }}
             </span>
           </div>
           <p v-if="ab.text" class="mt-1 text-xs font-normal normal-case leading-snug">
             <RulesText :text="ab.text" />
           </p>
+          <div class="mt-2 inline-flex items-center rounded border-2 border-black bg-black px-2 py-1 text-xs font-bold uppercase text-[var(--color-banner)]">
+            {{ rollLabel(ab) }}
+          </div>
         </button>
       </div>
 

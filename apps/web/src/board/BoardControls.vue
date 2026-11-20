@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted, watch } from 'vue'
 import { OrbitControls } from '@tresjs/cientos'
 import { useTres } from '@tresjs/core'
 import { MOUSE, Vector3 } from 'three'
@@ -151,10 +151,27 @@ function onControlChange() {
   if (c?.target) clampTarget(c.target)
 }
 
+function applyMouseMap() {
+  const c = tresControls.value as unknown as {
+    mouseButtons?: { LEFT: number; MIDDLE: number; RIGHT: number }
+    minAzimuthAngle?: number
+    maxAzimuthAngle?: number
+  } | null
+  if (!c?.mouseButtons) return
+  c.mouseButtons.LEFT = -1
+  c.mouseButtons.MIDDLE = MOUSE.DOLLY
+  c.mouseButtons.RIGHT = MOUSE.ROTATE
+  c.minAzimuthAngle = -Infinity
+  c.maxAzimuthAngle = Infinity
+}
+
 onMounted(() => {
   window.addEventListener('keydown', onKey)
+  applyMouseMap()
   onUnmounted(() => window.removeEventListener('keydown', onKey))
 })
+
+watch(tresControls, () => applyMouseMap(), { immediate: true })
 </script>
 
 <template>
@@ -168,12 +185,10 @@ onMounted(() => {
     :rotate-speed="0.35"
     :min-polar-angle="POLAR - 0.08"
     :max-polar-angle="POLAR + 0.22"
-    :min-azimuth-angle="AZIMUTH - 0.45"
-    :max-azimuth-angle="AZIMUTH + 0.45"
-    :min-distance="14"
-    :max-distance="32"
+    :min-distance="12"
+    :max-distance="42"
     :zoom-speed="0.65"
-    :mouse-buttons="{ LEFT: MOUSE.ROTATE, MIDDLE: MOUSE.DOLLY, RIGHT: MOUSE.DOLLY }"
+    :mouse-buttons="{ LEFT: -1, MIDDLE: MOUSE.DOLLY, RIGHT: MOUSE.ROTATE }"
     @change="onControlChange"
   />
 </template>
